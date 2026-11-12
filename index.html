@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OEM 원소재 연동제 자동화 — 계약 · 품번 · Index · 계산 · Word 보고</title>
+<meta name="description" content="협력업체별 계약 수식과 품번별 기준 파트단가 · 원소재 사용량을 나눠 등록해 두고, 원소재 Index 엑셀을 올리면 품번별 연동액과 변경 단가를 계산해 업체 요청단가와 비교하고 팀장 보고용 Word 문서를 만듭니다. 파일은 브라우저 안에서만 처리합니다.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://build-2611-15.jobability.co.kr/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="생성형 AI 업무자동화 전문가과정 · 2차수">
+<meta property="og:url" content="https://build-2611-15.jobability.co.kr/">
+<meta property="og:title" content="OEM 원소재 연동제 자동화 — 생성형 AI 업무자동화 전문가과정 2차수">
+<meta property="og:description" content="계약 수식과 품번별 데이터를 나눠 등록하고, Index 엑셀만 올리면 품번별 연동액 · 변경 단가 · Word 보고서까지 만듭니다.">
+<meta property="og:image" content="https://build-2611-15.jobability.co.kr/og-index.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<nav class="topnav" aria-label="주요 메뉴">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="#/dash">원소재 연동제 자동화 <small>build-2611-15 · 기획 양재현</small></a>
+    <ul class="topnav-links" id="nav">
+      <li><a href="#/dash" data-v="dash">대시보드</a></li>
+      <li><a href="#/vendors" data-v="vendors">업체 · 계약</a></li>
+      <li><a href="#/parts" data-v="parts">품번 · 사용량</a></li>
+      <li><a href="#/index" data-v="index">Index</a></li>
+      <li><a href="#/calc" data-v="calc">연동제 계산</a></li>
+      <li><a href="#/reports" data-v="reports">보고서 · 이력</a></li>
+      <li><a href="guide.html">사용법</a></li>
+      <li><a href="plan.html">기획서</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">생성형 AI 업무자동화 전문가과정 · 2차수 · 프로젝트 15</div>
+  <h1>OEM 원소재 연동제 자동화</h1>
+  <p>업체별 <b>계약 수식</b>과 품번별 <b>기준 파트단가 · 원소재 사용량</b>을 한 번 등록해 두면,
+     분기 · 반기마다 <b>원소재 Index 엑셀</b>만 올려 품번별 연동액과 변경 단가를 계산하고
+     업체 요청단가와 비교해 <b>팀장 보고용 Word 문서</b>까지 만듭니다.</p>
+</div></header>
+
+<main><div class="wrap">
+  <div id="toast" class="toast" hidden></div>
+  <div id="view"><section class="card" id="boot"><b>불러오는 중입니다</b><p class="sub">저장해 둔 업체 · 계약 · 품번 정보를 이 브라우저에서 읽고 있습니다.</p></section></div>
+  <input type="file" id="fileany" hidden>
+</div></main>
+
+<footer><div class="wrap">
+  생성형 AI 업무자동화 전문가과정 2차수 · 프로젝트 15 · 기획 양재현 ·
+  자료는 이 브라우저(IndexedDB)에만 저장되고 서버로 올라가지 않습니다 · 예제 데이터는 실제 사내 데이터가 아닙니다.
+</div></footer>
+
+<script src="lib/xlsx.full.min.js"></script>
+<script src="lib/mammoth.browser.min.js"></script>
+<script src="lib/pizzip.min.js"></script>
+<script src="lib/docxtemplater.min.js"></script>
+<script src="js/costidx.js"></script>
+<script src="js/linkage.js"></script>
+<script src="js/template.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

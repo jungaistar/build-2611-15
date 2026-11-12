@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사용법 — OEM 원소재 연동제 자동화</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<nav class="topnav" aria-label="주요 메뉴">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="index.html">원소재 연동제 자동화 <small>build-2611-15 · 기획 양재현</small></a>
+    <ul class="topnav-links">
+      <li><a href="index.html">도구</a></li>
+      <li><a href="guide.html" class="active" aria-current="page">사용법</a></li>
+      <li><a href="plan.html">기획서</a></li>
+    </ul>
+  </div>
+</nav>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">사용법</div>
+  <h1>계약은 한 번, 분기마다 Index 엑셀만</h1>
+  <p>업체 · 계약 → 품번 · 사용량 → Index → 연동제 계산 → 보고서 순서입니다.
+  자료는 이 브라우저에만 저장되고 계약서 · 구매 데이터는 어디로도 올라가지 않습니다.</p>
+</div></header>
+<main><div class="wrap doc">
+
+<div class="card">
+  <h2 style="margin-top:0">먼저 — 예제로 한 바퀴</h2>
+  <p>대시보드의 <b>예제 불러오기</b>를 누르면 가짜 업체 2곳 · 품번 6개 · 가짜 Index 통합문서가 들어갑니다.
+  「연동제 계산」에서 <b>계산하기</b>를 눌러 결과를 보고, <b>결과 승인 · 이력에 저장</b> 뒤 「보고서 · 이력」에서 Word 보고서를 만들어 보세요.</p>
+  <p>예제주물(주)은 일부러 「주철」에 맞는 Index 가 없게 만들었습니다. 「Index」 메뉴에서 유사 Index 후보를 승인해야 계산됩니다.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">1. 업체 · 계약</h2>
+  <p>업체를 추가하고 계약 정보를 넣습니다. <b>계약서(Word · PDF) 올려 항목 찾기</b>를 쓰면 표준 「납품대금 연동 특별약정서(별첨)」의 1~9번 항목과 기간 · 원재료 후보를 찾아 보여 줍니다.
+  찾은 값은 자동으로 들어가지 않습니다. 원문과 맞는지 보고 「넣기」를 누르세요.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>약정서 항목</th><th>도구의 칸</th><th>계산에서 하는 일</th></tr></thead>
+    <tbody>
+      <tr><td>1. 물품등의 명칭</td><td>연동제 적용 품목</td><td>보고서 표기</td></tr>
+      <tr><td>2. 주요 원재료 또는 주요 에너지</td><td>원소재 · 환율 연동 항목</td><td>항목마다 수식 · 조건을 정함</td></tr>
+      <tr><td>3. 원재료 가격의 기준지표</td><td>기준지표(문구) + Index 맞추기</td><td>어떤 Index 로 변동률을 구할지</td></tr>
+      <tr><td>4. 기준시점 · 비교시점</td><td>기준 · 비교시점(문구)</td><td>계산 화면의 기준 · 변경 기간을 정하는 근거</td></tr>
+      <tr><td>5. 조정요건</td><td>조정요건 ±%</td><td>변동률이 이보다 작으면 그 항목은 조정하지 않음</td></tr>
+      <tr><td>6. 조정주기</td><td>조정주기</td><td>기간 제안(분기 3개월 · 반기 6개월)</td></tr>
+      <tr><td>7. 조정일 · 8. 반영시점</td><td>조정일 · 조정대금 반영시점</td><td>보고서 표기</td></tr>
+      <tr><td>9. 납품대금 연동산식</td><td>연동산식(문구 그대로)</td><td>문구는 보관만 하고, 실제 계산은 아래 「수식」에서 고른 방식으로</td></tr>
+    </tbody></table></div>
+  <h3>수식 고르기</h3>
+  <ul>
+    <li><b>중량 연동식</b> — 연동액 = 품번의 사용량(kg) × 기준 Index(원/kg) × 적용 변동률. 「사용량 × (변경 Index − 기준 Index)」와 같은 식입니다.</li>
+    <li><b>비중 연동식</b> — 연동액 = 기준 파트단가 × 원소재 비중(%) × 적용 변동률.</li>
+    <li><b>사용자 정의 수식</b> — 위 둘과 다를 때 사칙연산으로 직접 적습니다. 예) <code>KG * (I1 - I0) * 0.5</code></li>
+    <li><b>환율</b> — 사용량이 없습니다. 「기준 파트단가 전체」 또는 「품번별 환율 대상 금액」 중 계약에 맞는 것을 고릅니다. 적용 비중은 100% 로 고정됩니다.</li>
+    <li>계약서 수식이 분명하지 않으면 <b>수식 미정</b>으로 두세요. 그 계약은 계산하지 않고 확인을 요청합니다.</li>
+  </ul>
+  <p>한 번이라도 계산 이력에 쓰인 계약은 고쳐 쓰지 못하고 <b>새 계약 버전</b>으로 저장됩니다. 과거 결과가 바뀌지 않게 하기 위해서입니다.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">2. 품번 · 사용량</h2>
+  <p>기준 파트단가와 원소재 사용량은 품번마다 따로 넣습니다. 두 가지 방법이 있고 저장되는 모양은 같습니다.</p>
+  <ul>
+    <li><b>엑셀로 한 번에 올리기</b> — 「엑셀 양식 내려받기」로 받은 표에 채워 올립니다. 열 순서가 달라도 머리글 이름으로 알아보고, 원소재 열은 <code>철강(kg)</code>처럼 이름 뒤에 (kg) 를 붙이면 몇 개든 인식합니다. 미리보기에서 신규 · 기존(덮어쓰기) · 오류 행을 확인한 뒤 승인해야 저장됩니다.</li>
+    <li><b>직접 입력</b> — 표에서 행(품번)과 열(원소재)을 추가 · 삭제합니다.</li>
+  </ul>
+  <p><b>빈 칸은 「미입력」, 0 은 「쓰지 않음」</b>입니다. 중량 연동식인 원소재의 사용량이 빈 칸이면 그 품번은 계산하지 않습니다. 쓰지 않는 소재는 0 을 넣으세요.</p>
+  <p>환율은 kg 이 없으므로 사용량 열을 만들 수 없습니다. 환율을 적용하는 품번에 「환율 적용」을 켜고, 계약이 「품번별 환율 대상 금액」 기준이면 금액을 넣습니다.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">3. Index</h2>
+  <p>구매기획팀이 배포한 엑셀을 그대로 올립니다. 세 가지 모양을 읽습니다.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>모양</th><th>알아보는 방법</th></tr></thead>
+    <tbody>
+      <tr><td>가로형 — 원소재가 행, 날짜가 열</td><td>머리줄에 「원소재 이름」 칸과 날짜 칸. 규격 · 기준 · 단위 · 출처 · 원본 시트 칸은 있으면 읽음</td></tr>
+      <tr><td>머리 블록 — 품목이 열</td><td>A열에 Item · 지역 · 기준 · 단위 · 규격 · 출처, 아래에 연 · 월과 값(「주요 원자재 가격 동향」 형식)</td></tr>
+      <tr><td>세로형 — 날짜 열 + Index 열</td><td>첫 줄이 「날짜 · Index 이름…」</td></tr>
+    </tbody></table></div>
+  <p>업체를 고르면 계약 원소재마다 맞는 Index 를 찾습니다.</p>
+  <ul>
+    <li>업체명과 같은 시트(가로형은 「원본 시트」 칸)를 먼저 봅니다. 그 시트에 소재가 맞는 Index 가 없으면 그 시트를 자동으로 쓰지 않고 다른 시트에서 찾습니다.</li>
+    <li>이름 · 규격이 맞는 Index 가 하나면 그대로 적용합니다. 여럿이면 담당자가 고릅니다.</li>
+    <li>맞는 것이 없으면 유사 Index 후보를 최대 3개 보여 줍니다(재질 유사도 · 가격 변동 상관 · 방향 일치 · 기간 변동률 · 데이터 완전성 · 점수). <b>계약에 「대체 Index 사용 허용」이 켜져 있고 담당자가 승인해야</b> 계산에 씁니다.</li>
+    <li>USD · RMB 단위 Index 는 같은 파일의 환율로 원화 환산 계열을 따로 만듭니다(중량 연동식에는 원/kg · 원/ton 이 필요합니다).</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">4. 연동제 계산</h2>
+  <ol>
+    <li>업체 · 계약 버전 · 적용 월을 고릅니다.</li>
+    <li>기준 Index 기간과 변경 Index 기간을 정합니다. 「적용 월 · 주기로 기간 제안」은 직전 분기(반기)와 그 앞 분기(반기)를 넣어 줍니다. 계약서의 기준시점 · 비교시점과 맞는지 꼭 확인하세요. 한 달만 쓰려면 시작과 끝을 같은 달로 둡니다.</li>
+    <li>업체가 요구한 변경 단가가 있으면 품번별로 넣습니다.</li>
+    <li><b>계산하기</b> — 항목별 변동률과 계약 조건 적용 결과, 품번별 연동액 · 변경 단가 · 요청단가와의 차액이 나옵니다. 「중간 계산 과정」을 펼치면 품번 · 원소재별 식을 볼 수 있습니다.</li>
+    <li>검토 의견을 적고 <b>결과 승인 · 이력에 저장</b>을 누릅니다.</li>
+  </ol>
+  <p>값이 없거나 조건이 맞지 않으면 숫자를 지어내지 않고 멈춥니다. 멈춘 품번은 「확인 필요」와 이유가 표시됩니다.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>멈추거나 알리는 경우</th><th>할 일</th></tr></thead>
+    <tbody>
+      <tr><td>수식 미정 · 비중 누락 · 환율 기준 미정 · 같은 원소재 중복</td><td>「업체 · 계약」에서 고치기</td></tr>
+      <tr><td>사용량 · 기준 파트단가가 빈 칸, 품번 중복, 환율에 kg</td><td>「품번 · 사용량」에서 고치기</td></tr>
+      <tr><td>일치 Index 가 여럿 · 유사 Index 미승인 · 대체 불허</td><td>「Index」에서 고르거나 계약 조건 확인</td></tr>
+      <tr><td>기간에 Index 값 없음 · 단위가 원/kg 이 아님</td><td>기간을 바꾸거나 원화 환산 계열 선택</td></tr>
+      <tr><td>적용 월이 계약 버전 기간 밖</td><td>계약 버전 확인</td></tr>
+      <tr><td>원소재 금액이 기준 파트단가보다 큼</td><td>중량 입력 확인(알림만, 계산은 함)</td></tr>
+    </tbody></table></div>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">5. 보고서 · 이력</h2>
+  <p>저장한 이력을 열어 <b>Word 보고서 만들기</b>를 누릅니다. 양식을 올리지 않았으면 기본 틀을 씁니다.</p>
+  <p>팀의 보고 양식을 쓰려면 Word 파일의 넣고 싶은 자리에 <code>{업체명}</code> <code>{적용월}</code> 같은 꼬리표를 적어 「Word 템플릿 등록」으로 올리세요. 표 · 글꼴 · 배치는 그대로 두고 값만 채웁니다.
+  품번처럼 여러 줄이 되는 표는 한 행의 첫 칸에 <code>{#rows}</code>, 끝 칸에 <code>{/rows}</code>를 두면 그 행이 품번 수만큼 늘어납니다. 꼬리표 목록은 화면의 「양식에 쓸 수 있는 꼬리표」에 있습니다.</p>
+  <p>꼬리표는 중간에 서식을 바꾸지 말고 한 번에 입력하세요. 글자 일부만 굵게 하면 Word 가 꼬리표를 쪼개 저장해 인식되지 않습니다.</p>
+  <p>이력은 저장할 때의 계약 버전 · 품번 값 · Index 값을 통째로 묶어 둡니다. 나중에 계약이나 Index 파일을 바꿔도 과거 결과는 바뀌지 않습니다. 같은 업체의 다른 이력과 품번별 변경 단가를 나란히 비교할 수 있습니다.</p>
+</div>
+
+<div class="card">
+  <h2 style="margin-top:0">자료 보관과 옮기기</h2>
+  <ul>
+    <li>자료는 이 PC 의 이 브라우저(IndexedDB)에만 있습니다. 브라우저의 사이트 데이터를 지우면 함께 지워집니다.</li>
+    <li>대시보드의 <b>백업 내려받기(JSON)</b>로 주기적으로 받아 두세요. 다른 PC · 브라우저에서는 「백업 불러오기」로 옮깁니다.</li>
+    <li>인터넷 없이 쓰려면 저장소를 ZIP 으로 받아 폴더째 두고 <code>index.html</code> 을 엽니다. 라이브러리가 모두 폴더 안에 있습니다. (PDF 계약서 읽기만 브라우저 보안 때문에 파일로 직접 열면 안 될 수 있습니다. 그때는 Word 로 올리세요.)</li>
+    <li>스캔한 계약서(그림 PDF)는 글자를 읽지 못합니다. 직접 입력하세요.</li>
+  </ul>
+  <h3>예제 파일(전부 가짜 자료)</h3>
+  <ul>
+    <li><a href="samples/parts_sample.xlsx">parts_sample.xlsx</a> — 품번별 원소재 대량 등록 예</li>
+    <li><a href="samples/index-workbook_sample.xlsx">index-workbook_sample.xlsx</a> — 머리 블록 형식 Index 통합문서(업체 시트 포함)</li>
+    <li><a href="samples/index-wide_sample.xlsx">index-wide_sample.xlsx</a> — 가로형(원소재가 행 · 날짜가 열) Index</li>
+    <li><a href="samples/report-template.docx">report-template.docx</a> — Word 보고서 기본 틀(꼬리표가 들어 있음)</li>
+    <li><a href="proto/">proto/</a> — 기획자가 만든 시제품 V2(계약서 자동입력 · 가로형 Index 까지, 연동액 계산은 이 도구에서 구현)</li>
+  </ul>
+</div>
+
+</div></main>
+<footer><div class="wrap">생성형 AI 업무자동화 전문가과정 2차수 · 프로젝트 15 · 기획 양재현 · 예제 데이터는 실제 사내 데이터가 아닙니다.</div></footer>
+</body>
+</html>
