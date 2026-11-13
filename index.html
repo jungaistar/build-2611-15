@@ -4,27 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OEM 원소재 연동제 자동화 — 계약 · 품번 · Index · 계산 · Word 보고</title>
-<meta name="description" content="협력업체별 계약 수식과 품번별 기준 파트단가 · 원소재 사용량을 나눠 등록해 두고, 원소재 Index 엑셀을 올리면 품번별 연동액과 변경 단가를 계산해 업체 요청단가와 비교하고 팀장 보고용 Word 문서를 만듭니다. 파일은 브라우저 안에서만 처리합니다.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- seo-kit: 검색 · 공유 미리보기(주소를 옮기면 이 묶음의 주소를 내 주소로) -->
 <link rel="canonical" href="https://build-2611-15.jobability.co.kr/">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="생성형 AI 업무자동화 전문가과정 · 2차수">
+<meta property="og:site_name" content="HD건설기계">
+<meta property="og:title" content="HD건설기계 · OEM 원소재 연동제 자동화">
+<meta property="og:description" content="협력업체별 계약 수식 · 조정요건과 품번별 기준 파트단가 · 원소재 사용량을 나눠 등록해 두고, 분기 · 반기마다 원소재 Index 엑셀을 올리면 품번별 연동액과 변경 단가를 계산해 업체 요청단가와 비교하고 팀장 보고용 Word 문서를 만드는 브라우저 도구입니다. 자료는 이 브라우저에만">
 <meta property="og:url" content="https://build-2611-15.jobability.co.kr/">
-<meta property="og:title" content="OEM 원소재 연동제 자동화 — 생성형 AI 업무자동화 전문가과정 2차수">
-<meta property="og:description" content="계약 수식과 품번별 데이터를 나눠 등록하고, Index 엑셀만 올리면 품번별 연동액 · 변경 단가 · Word 보고서까지 만듭니다.">
-<meta property="og:image" content="https://build-2611-15.jobability.co.kr/og-index.png">
+<meta property="og:image" content="https://build-2611-15.jobability.co.kr/og-image.png">
+<meta property="og:image:secure_url" content="https://build-2611-15.jobability.co.kr/og-image.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OEM 원소재 연동제 자동화">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HD건설기계 · OEM 원소재 연동제 자동화">
+<meta name="twitter:description" content="협력업체별 계약 수식 · 조정요건과 품번별 기준 파트단가 · 원소재 사용량을 나눠 등록해 두고, 분기 · 반기마다 원소재 Index 엑셀을 올리면 품번별 연동액과 변경 단가를 계산해 업체 요청단가와 비교하고 팀장 보고용 Word 문서를 만드는 브라우저 도구입니다. 자료는 이 브라우저에만">
+<meta name="twitter:image" content="https://build-2611-15.jobability.co.kr/og-image.png">
+<!-- /seo-kit -->
+<meta name="description" content="협력업체별 계약 수식 · 조정요건과 품번별 기준 파트단가 · 원소재 사용량을 나눠 등록해 두고, 분기 · 반기마다 원소재 Index 엑셀을 올리면 품번별 연동액과 변경 단가를 계산해 업체 요청단가와 비교하고 팀장 보고용 Word 문서를 만드는 브라우저 도구입니다. 자료는 이 브라우저에만 저장되고 서버로 올라가지 않습니다.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/app.css">
 <!-- auth-kit: 로그인 전에는 도구 화면을 감춘다(js/auth.js 가 판정 뒤 푼다) -->
 <script>document.documentElement.classList.add('auth-lock')</script>
-<link rel="stylesheet" href="css/auth.css?v=2026-11-13.9">
-<link rel="stylesheet" href="css/board.css?v=2026-11-13.9">
-<link rel="stylesheet" href="css/kit-build.css?v=2026-11-13.9">
+<link rel="stylesheet" href="css/auth.css?v=2026-11-13.11">
+<link rel="stylesheet" href="css/board.css?v=2026-11-13.11">
+<link rel="stylesheet" href="css/kit-build.css?v=2026-11-13.11">
 <!-- /auth-kit -->
 </head>
 <body>
@@ -73,11 +81,11 @@
 <script src="js/template.js"></script>
 <script src="js/app.js"></script>
 <!-- auth-kit: 로그인 · 사용 신청 · 승인 · 게시판(키트 정본 data10-00/kit/auth, 적용 build-2611-00/tools/kit) -->
-<script src="vendor/supabase.js?v=2026-11-13.9"></script>
-<script src="js/auth-config.js?v=2026-11-13.9"></script>
-<script src="js/kit-build.js?v=2026-11-13.9"></script>
-<script src="js/board.js?v=2026-11-13.9"></script>
-<script src="js/auth.js?v=2026-11-13.9"></script>
+<script src="vendor/supabase.js?v=2026-11-13.11"></script>
+<script src="js/auth-config.js?v=2026-11-13.11"></script>
+<script src="js/kit-build.js?v=2026-11-13.11"></script>
+<script src="js/board.js?v=2026-11-13.11"></script>
+<script src="js/auth.js?v=2026-11-13.11"></script>
 <!-- /auth-kit -->
 </body>
 </html>
